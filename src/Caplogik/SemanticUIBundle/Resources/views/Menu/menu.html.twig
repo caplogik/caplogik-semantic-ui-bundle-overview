@@ -1,0 +1,112 @@
+{% extends 'knp_menu_base.html.twig' %}
+
+{% block compressed_root %}
+    {% spaceless %}
+        {{ block('root') }}
+    {% endspaceless %}
+{% endblock %}
+
+{% block root %}
+    <div class="menu">
+        {% if false %}
+            {{ block('item') -}}
+        {% else %}
+            {{ block('children') }}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block children %}
+    {% import _self as _ %}
+
+    {% set childrenOptions = ({})|merge(options) %}
+
+    {% if options.depth is not null %}
+        {% set childrenOptions = childrenOptions|merge({'depth': options.depth - 1}) %}
+    {% endif  %}
+
+    {% if options.matchingDepth is not null and options.matchingDepth > 0 %}
+        {% set childrenOptions = childrenOptions|merge({'matchingDepth': options.matchingDepth - 1}) %}
+    {% endif %}
+
+    {% for child in item.children %}
+        {{ _.item(child, childrenOptions|default(options), matcher, app) }}
+    {% endfor %}
+{% endblock %}
+
+{% block item %}
+    {% import _self as _ %}
+
+    {% if item.displayed %}
+        {%- set attr = {}|merge(item.attributes) -%}
+        {%- set attr = attr|merge({'class':  (attr.class|default('') ~ ' item')|trim}) -%}
+
+        {% if matcher.isCurrent(item) %}
+            {%- set attr = attr|merge({'class': ('active ' ~ attr.class|default(''))|trim}) -%}
+        {% endif %}
+
+        {% if item.hasChildren() %}
+            {% if false %}
+                {{ block('list_item') -}}
+            {% else %}
+                {{ block('dropdown_item') }}
+            {% endif %}
+        {% else %}
+            {% if item.uri is not empty %}
+                {% set attr = attr|merge({'href': item.uri}) %}
+            {% endif %}
+
+            <a {{ _.attributes(attr) }}>{{ block('label') }}</a>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block list_item %}
+    <div class="item">
+        <div class="header">{{ block('label') }}</div>
+
+        <div class="menu">
+            {{ block('children') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block dropdown_item %}
+    <div class="ui dropdown item">
+        {{ block('label') }}
+        <i class="dropdown icon"></i>
+
+        <div class="menu">
+            {{ block('children') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block label %}
+    {% if options.allow_safe_labels and item.getExtra('safe_label', false) %}
+        {{ item.label|raw }}
+    {% else %}
+        {{ item.label }}
+    {% endif %}
+{% endblock %}
+
+
+
+
+
+
+
+
+{# encapsulation #}
+{% macro item(item, options, matcher, app) %}
+    {{ block('item') }}
+{% endmacro %}
+
+{# util #}
+{% macro attributes(attributes) %}
+    {% for name, value in attributes %}
+        {%- if value is not none and value is not same as(false) -%}
+            {{- ' %s="%s"'|format(name, value is same as(true) ? name|e : value|e)|raw -}}
+        {%- endif -%}
+    {%- endfor -%}
+{% endmacro %}

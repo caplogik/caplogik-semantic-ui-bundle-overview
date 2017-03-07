@@ -1,0 +1,199 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{%- block form_widget_simple -%}
+    {% import _self as util %}
+
+    {%- set type = type|default('text') -%}
+
+    {% set semantic_allowed_input_types = [
+        'color',
+        'date',
+        'datetime',
+        'datetime-local',
+        'email',
+        'month',
+        'number',
+        'password',
+        'search',
+        'tel',
+        'text',
+        'time',
+        'url',
+        'week'
+    ] %}
+
+    {% if type in (semantic_allowed_input_types|keys) and input_attr is defined %}
+        <div {{ util.input_attributes(form.vars, input_attr|default([])) }}>
+            {% if input_left is defined and input_left is not empty %}
+                {{input_left|raw}}
+            {% endif %}
+
+            {{ parent() }}
+
+            {% if input_right is defined and input_right is not empty %}
+                {{input_right|raw}}
+            {% endif %}
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{%- endblock -%}
+
+{%- block choice_widget_expanded -%}
+    {% import _self as util %}
+    {%- set attr = attr|merge({'class':  'ui ' ~ (attr.class|default('') ~ ' fields')|trim}) -%}
+
+    <div {{ block('widget_container_attributes') }}>
+        {%- for child in form %}
+            <div class="field">
+                <div {% if multiple %} {{ util.checkbox_input_attributes(form.vars, input_attr|default([])) }} {% else %} {{ util.radio_input_attributes(form.vars, input_attr|default([])) }} {% endif %}>
+                    {{- form_widget(child) -}}
+                    {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+                </div>
+            </div>
+        {% endfor -%}
+    </div>
+{%- endblock -%}
+
+{%- block choice_widget_collapsed -%}
+    {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' ui dropdown')|trim}) -%}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block percent_widget -%}
+    {%- set type = type|default('text') -%}
+
+    {%- set input_attr = (input_attr|default({}))|merge({'class': (input_attr.class|default('') ~ ' right labeled')|trim}) -%}
+    {%- set input_right = (input_right|default('') ~ ' <div class="ui label">%</div>')|trim -%}
+
+    {{ block('form_widget_simple') }}
+{%- endblock -%}
+
+{%- block button_widget -%}
+    {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' ui button')|trim}) -%}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block form_row -%}
+    {% import _self as util %}
+
+    <div {{ util.input_field_attributes(form.vars, field_attr|default([])) }}>
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock -%}
+
+{%- block checkbox_row -%}
+    {% import _self as util %}
+
+    <div {{ util.input_field_attributes(form.vars, field_attr|default([])) }}>
+        <div {{ util.checkbox_input_attributes(form.vars, input_attr|default([])) }}>
+            {{- form_widget(form) -}}
+            {{- form_label(form) -}}
+        </div>
+
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock -%}
+
+{%- block radio_row -%}
+    {% import _self as util %}
+
+    <div {{ util.input_field_attributes(form.vars, field_attr|default([])) }}>
+        <div {{ util.radio_input_attributes(form.vars, input_attr|default([])) }}>
+            {{- form_widget(form) -}}
+            {{- form_label(form) -}}
+        </div>
+
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock -%}
+
+{%- block button_row -%}
+    {% import _self as util %}
+
+    {% if field_attr is defined %}
+        <div {{ util.button_field_attributes(form.vars, field_attr|default([])) }}>
+            {{- form_widget(form) -}}
+        </div>
+    {% else %}
+        {{- form_widget(form) -}}
+    {% endif %}
+{%- endblock -%}
+
+{%- block form_start -%}
+    {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' ui form')|trim}) -%}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        <div class="ui error message">
+            <ul class="list">
+                {%- for error in errors -%}
+                    <li>{{ error.message }}</li>
+                {%- endfor -%}
+            </ul>
+        </div>
+    {%- endif -%}
+{%- endblock -%}
+
+
+
+{# util #}
+{% macro attributes(attributes) %}
+    {%- for attrname, attrvalue in attributes -%}
+        {{- " " -}}
+        {%- if attrname in ['placeholder', 'title'] -%}
+            {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain) }}"
+        {%- elseif attrvalue is same as(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not same as(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
+{% endmacro %}
+
+{% macro input_attributes(context, attributes) %}
+    {%- set attributes = attributes|merge({'class': ('ui ' ~ attributes.class|default('') ~ ' input')|trim}) -%}
+
+    {% import _self as util %}
+    {{ util.attributes(attributes) }}
+{% endmacro %}
+
+{% macro checkbox_input_attributes(context, attributes) %}
+    {%- set attributes = attributes|merge({'class': ('ui ' ~ attributes.class|default('') ~ ' checkbox')|trim}) -%}
+
+    {% import _self as util %}
+    {{ util.attributes(attributes) }}
+{% endmacro %}
+
+{% macro radio_input_attributes(context, attributes) %}
+    {%- set attributes = attributes|merge({'class': ('ui ' ~ attributes.class|default('') ~ ' radio checkbox')|trim}) -%}
+
+    {% import _self as util %}
+    {{ util.attributes(attributes) }}
+{% endmacro %}
+
+{% macro input_field_attributes(context, attributes) %}
+    {%- if context.required -%}
+        {%- set attributes = attributes|merge({'class': (attributes.class|default('') ~ ' required')|trim}) -%}
+    {%- endif -%}
+
+    {%- if context.errors|length > 0 -%}
+        {%- set attributes = attributes|merge({'class': (attributes.class|default('') ~ ' error')|trim}) -%}
+    {%- endif -%}
+
+    {%- set attributes = attributes|merge({'class': (attributes.class|default('') ~ ' field')|trim}) -%}
+
+    {% import _self as util %}
+    {{ util.attributes(attributes) }}
+{% endmacro %}
+
+{% macro button_field_attributes(context, attributes) %}
+    {%- set attributes = attributes|merge({'class': (attributes.class|default('') ~ ' field')|trim}) -%}
+
+    {% import _self as util %}
+    {{ util.attributes(attributes) }}
+{% endmacro %}
