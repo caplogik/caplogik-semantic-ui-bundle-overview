@@ -1,6 +1,11 @@
 CaplogikSemanticUIBundle
 ========================
 
-**DISCLAIMER**: WIP, don't use try in production, things will break often
+**DISCLAIMER**: WIP, don't use in production, unstable api, things will often break
 
-Bundle will be moved to another repo when stable
+Core bundle (Caplogik\SemanticUIBundle) will be moved to another repo when stable.
+
+## TO DO
+* find a way to enable/disable bundle form extensions
+* finish KnpMenu support
+* add semantic-ui javascript form validation support
