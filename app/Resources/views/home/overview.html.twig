@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block meta_title %}
+    Overview - {{parent()}}
+{% endblock %}
+
+{% block body %}
+    <div class="ui segment">
+        {{ form(form, {
+            attr: {
+                novalidate: true
+            }
+        }) }}
+    </div>
+{% endblock %}

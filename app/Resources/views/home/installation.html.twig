@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block meta_title %}
+    Installation - {{parent()}}
+{% endblock %}
+
+{% block body %}
+    Installation
+
+    <ul>
+        <li>add bundle to AppKernel</li>
+        <li>include form template (twig config ?)</li>
+        <li></li>
+    </ul>
+
+    <code><pre>form_themes:
+        - "@CaplogikSemanticUI/Form/form_div_layout.html.twig"</pre></code>
+{% endblock %}

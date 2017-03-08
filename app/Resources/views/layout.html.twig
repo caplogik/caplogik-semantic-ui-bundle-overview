@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block meta_title %}Caplogik/SemanticUIBundle{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        {% block styles %}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css">
+        {% endblock %}
+    </head>
+    <body>
+        <div class="ui menu">
+            <div class="header item">
+                Caplogik/SemanticUIBundle
+            </div>
+
+            <a class="item" href="{{ path('app.home.home') }}">Home</a>
+            <a class="item" href="{{ path('app.home.installation') }}">Installation</a>
+            <a class="item" href="{{ path('app.home.overview') }}">Overview</a>
+
+            <div class="right menu">
+                <a class="item"> <i class="github icon"></i> Github</a>
+            </div>
+        </div>
+
+        <div class="ui one column grid container">
+            <div class="column">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+
+        {% block scripts %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
+            <script>
+                $(document).find('select').dropdown();
+            </script>
+        {% endblock %}
+    </body>
+</html>

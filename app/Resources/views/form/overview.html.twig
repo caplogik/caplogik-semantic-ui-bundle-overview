@@ -1,0 +1,88 @@
+{% block app_overview_widget %}
+    <!-- checkbox -->
+    <h2 class="ui dividing header">Checkbox</h2>
+
+    <div class="ui three fields">
+        {{ form_row(form.checkbox) }}
+
+        {{ form_row(form.toggleCheckbox, {
+            input_attr: { class: 'toggle' }
+        }) }}
+
+        {{ form_row(form.sliderCheckbox, {
+            input_attr: { class: 'slider' }
+        }) }}
+    </div>
+
+    <!-- choice -->
+    <h2 class="ui dividing header">Choice</h2>
+
+    {{ form_row(form.choice) }}
+
+    {{ form_row(form.expandedChoice) }}
+
+    {{ form_row(form.multipleChoice) }}
+
+    {{ form_row(form.multipleExpandedChoice) }}
+
+    {{ form_row(form.multipleExpandedToggleChoice, {
+        input_attr: { class: 'toggle' },
+        attr: { class: 'grouped' }
+    }) }}
+
+    {{ form_row(form.multipleExpandedSliderChoice, {
+        input_attr: {class: 'slider'}
+    }) }}
+
+    <!-- text -->
+    <h2 class="ui dividing header">General text</h2>
+
+    <div class="ui two fields">
+        {{ form_row(form.url, {
+            label: 'labeled url input',
+            input_attr: { class: 'labeled' },
+            input_left: '<div class="ui label">https://</div>',
+            attr: {
+                placeholder: 'caplogik.com'
+            }
+        }) }}
+
+        {{ form_row(form.search, {
+            label: 'form button action icon search input',
+            input_attr: { class: 'right action left icon' },
+            input_left: '<i class="search icon"></i>',
+            input_right: form_widget(form.button),
+            attr: {
+                placeholder: 'some fancy query'
+            }
+        }) }}
+    </div>
+
+    {{ form_row(form.text, {
+        label: 'massive text input',
+        input_attr: { class: 'massive' },
+        attr: {
+            placeholder: 'massive and mighty !'
+        }
+    }) }}
+
+    <div class="ui two fields">
+        {{ form_row(form.password, {
+            label: 'left corner labeled password input',
+            input_attr: { class: 'left corner labeled' },
+            input_right: '<div class="ui left corner label"><i class="lock icon"></i></div>'
+        }) }}
+
+        {{ form_row(form.money, {
+            label: 'action number input',
+            currency: false,
+            attr: {
+                placeholder: 'nope'
+            },
+            input_attr: { class: 'action' },
+            input_right: form_widget(form.currency)
+        }) }}
+    </div>
+
+    <h2 class="ui dividing header">uncategorized</h2>
+{% endblock %}
