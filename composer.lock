@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9d6b4a48e831e9a075d223a3300aa72b",
-    "content-hash": "81f3846536ff5d71103522a3a7b76f32",
+    "hash": "c755d3a78998a8023a5f6a1f54da4c83",
+    "content-hash": "4e0190263f31a32e300bf40d531729bf",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -676,6 +676,58 @@
             "time": "2016-10-10 12:19:37"
         },
         {
+            "name": "sensio/distribution-bundle",
+            "version": "v5.0.18",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
+                "reference": "17846680901003d26d823c2e3ac9228702837916"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/17846680901003d26d823c2e3ac9228702837916",
+                "reference": "17846680901003d26d823c2e3ac9228702837916",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9",
+                "sensiolabs/security-checker": "~3.0|~4.0",
+                "symfony/class-loader": "~2.3|~3.0",
+                "symfony/config": "~2.3|~3.0",
+                "symfony/dependency-injection": "~2.3|~3.0",
+                "symfony/filesystem": "~2.3|~3.0",
+                "symfony/http-kernel": "~2.3|~3.0",
+                "symfony/process": "~2.3|~3.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sensio\\Bundle\\DistributionBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Base bundle for Symfony Distributions",
+            "keywords": [
+                "configuration",
+                "distribution"
+            ],
+            "time": "2017-01-10 14:58:45"
+        },
+        {
             "name": "sensio/framework-extra-bundle",
             "version": "v3.0.23",
             "source": {
@@ -744,6 +796,50 @@
                 "controllers"
             ],
             "time": "2017-03-02 20:17:28"
+        },
+        {
+            "name": "sensiolabs/security-checker",
+            "version": "v4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sensiolabs/security-checker.git",
+                "reference": "f2ce0035fc512287978510ca1740cd111d60f89f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/f2ce0035fc512287978510ca1740cd111d60f89f",
+                "reference": "f2ce0035fc512287978510ca1740cd111d60f89f",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/console": "~2.7|~3.0"
+            },
+            "bin": [
+                "security-checker"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "SensioLabs\\Security": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien.potencier@gmail.com"
+                }
+            ],
+            "description": "A security checker for your composer.lock",
+            "time": "2017-02-18 17:53:25"
         },
         {
             "name": "symfony/monolog-bundle",
