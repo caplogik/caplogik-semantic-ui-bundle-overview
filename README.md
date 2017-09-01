@@ -9,6 +9,7 @@ Core bundle (Caplogik\SemanticUIBundle) will be moved to another repo when stabl
 * enable/disable parts from configuration
 
 ### Form
+* widget only checkbox / radio (only works as row now)
 * button support
 * semantic-ui javascript form validation support
 

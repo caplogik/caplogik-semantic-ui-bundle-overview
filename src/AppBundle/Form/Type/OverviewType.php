@@ -10,6 +10,7 @@ use AppBundle\Form\Type\FieldType;
 use AppBundle\Form\Type\InputType;
 use AppBundle\Form\Type\GroupType;
 use AppBundle\Form\Type\CheckboxType;
+use AppBundle\Form\Type\ChoiceType;
 
 final class OverviewType extends AbstractType
 {
@@ -38,6 +39,7 @@ final class OverviewType extends AbstractType
         $builder->add('field', FieldType::class);
         $builder->add('group', GroupType::class);
         $builder->add('checkbox', CheckboxType::class);
+        $builder->add('choice', ChoiceType::class);
 
         // choice
         // $builder->add('choice', ChoiceType::class, $choiceOptions);

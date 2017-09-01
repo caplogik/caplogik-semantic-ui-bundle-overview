@@ -31,10 +31,10 @@ final class ChoiceType extends AbstractType
     {
         $resolver->setDefaults([
             'choices' => [
-                'Apples',
-                'Oranges',
-                'Pears',
-                'Grapefruit'
+                'Apples' => 0,
+                'Oranges' => 1,
+                'Pears' => 2,
+                'Grapefruit' => 3
             ]
         ]);
     }
