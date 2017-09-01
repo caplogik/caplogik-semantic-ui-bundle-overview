@@ -32,16 +32,6 @@
 
 
 {# CHECKBOX #}
-{%- block checkbox_widget_saved -%}
-    {%- if csui_input is not same as(false) -%}
-        <div {{- block('widget_csui_input_checkbox') -}}>
-            {{- form_widget(form) -}}
-        </div>
-    {%- else -%}
-        {{- parent() -}}
-    {%- endif -%}
-{%- endblock checkbox_widget_saved -%}
-
 {%- block checkbox_widget -%}
     {{- parent() -}}
 {%- endblock checkbox_widget -%}
@@ -63,13 +53,7 @@
 
 {# RADIO #}
 {%- block radio_widget -%}
-    {%- if csui_input is not same as(false) -%}
-        <div {{- block('widget_csui_input_radio') -}}>
-            {{- form_widget(form) -}}
-        </div>
-    {%- else -%}
-        {{- parent() -}}
-    {%- endif -%}
+    {{- parent() -}}
 {%- endblock radio_widget -%}
 
 {%- block radio_row -%}
@@ -91,9 +75,9 @@
 {%- block button_widget -%}
     {%- if csui_input is not same as(false) -%}
         {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' ui button')|trim}) -%}
-    {%- else -%}
-        {{- parent() -}}
     {%- endif -%}
+
+    {{- parent() -}}
 {%- endblock button_widget -%}
 
 {%- block button_row -%}
@@ -108,7 +92,7 @@
 
 {# CHOICE #}
 {%- block choice_widget_expanded -%}
-    <div {{- block('widget_container_attributes') -}}>
+    <div {{ block('widget_container_attributes') }}>
         <div {{- block('widget_csui_group') -}}>
             {%- for child in form -%}
                 <div {{- block('widget_csui_field') -}}>
@@ -125,9 +109,9 @@
 {%- block choice_widget_collapsed -%}
     {%- if csui_input is not same as(false) -%}
         {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' ui dropdown')|trim}) -%}
-    {%- else -%}
-        {{- parent() -}}
     {%- endif -%}
+
+    {{- parent() -}}
 {%- endblock choice_widget_collapsed -%}
 
 
