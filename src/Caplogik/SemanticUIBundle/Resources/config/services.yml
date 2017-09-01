@@ -1,18 +1,13 @@
 services:
-    caplogik.semantic_ui.form.input_type_extension:
-        class: Caplogik\SemanticUIBundle\Form\Extension\InputTypeExtension
-        tags:
-            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
-
-    caplogik.semantic_ui.form.input_field_type_extension:
-        class: Caplogik\SemanticUIBundle\Form\Extension\InputFieldTypeExtension
-        tags:
-            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
-
-    caplogik.semantic_ui.form.button_field_type_extension:
-        class: Caplogik\SemanticUIBundle\Form\Extension\ButtonFieldTypeExtension
+    caplogik.semantic_ui.form.button__type_extension:
+        class: Caplogik\SemanticUIBundle\Form\Extension\ButtonTypeExtension
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\ButtonType }
+
+    caplogik.semantic_ui.form.form_type_extension:
+        class: Caplogik\SemanticUIBundle\Form\Extension\FormTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
 
     caplogik.semantic_ui.menu.twig_renderer:
         class: Caplogik\SemanticUIBundle\Form\Extension\ButtonFieldTypeExtension

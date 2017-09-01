@@ -1,199 +1,251 @@
-{% extends 'form_div_layout.html.twig' %}
+{%- extends 'form_div_layout.html.twig' -%}
 
+{# FORM #}
 {%- block form_widget_simple -%}
-    {% import _self as util %}
+    {%- if csui_input is not same as(false) -%}
+        <div {{- block('widget_csui_input') -}}>
+            {%- if csui_input_left is not empty -%}
+                {{- csui_input_left|raw -}}
+            {%- endif -%}
 
-    {%- set type = type|default('text') -%}
+            {{- parent() -}}
 
-    {% set semantic_allowed_input_types = [
-        'color',
-        'date',
-        'datetime',
-        'datetime-local',
-        'email',
-        'month',
-        'number',
-        'password',
-        'search',
-        'tel',
-        'text',
-        'time',
-        'url',
-        'week'
-    ] %}
-
-    {% if type in (semantic_allowed_input_types|keys) and input_attr is defined %}
-        <div {{ util.input_attributes(form.vars, input_attr|default([])) }}>
-            {% if input_left is defined and input_left is not empty %}
-                {{input_left|raw}}
-            {% endif %}
-
-            {{ parent() }}
-
-            {% if input_right is defined and input_right is not empty %}
-                {{input_right|raw}}
-            {% endif %}
+            {%- if csui_input_right is not empty -%}
+                {{- csui_input_right|raw -}}
+            {%- endif -%}
         </div>
-    {% else %}
-        {{ parent() }}
-    {% endif %}
-{%- endblock -%}
-
-{%- block choice_widget_expanded -%}
-    {% import _self as util %}
-    {%- set attr = attr|merge({'class':  'ui ' ~ (attr.class|default('') ~ ' fields')|trim}) -%}
-
-    <div {{ block('widget_container_attributes') }}>
-        {%- for child in form %}
-            <div class="field">
-                <div {% if multiple %} {{ util.checkbox_input_attributes(form.vars, input_attr|default([])) }} {% else %} {{ util.radio_input_attributes(form.vars, input_attr|default([])) }} {% endif %}>
-                    {{- form_widget(child) -}}
-                    {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
-                </div>
-            </div>
-        {% endfor -%}
-    </div>
-{%- endblock -%}
-
-{%- block choice_widget_collapsed -%}
-    {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' ui dropdown')|trim}) -%}
-    {{ parent() }}
-{%- endblock -%}
-
-{%- block percent_widget -%}
-    {%- set type = type|default('text') -%}
-
-    {%- set input_attr = (input_attr|default({}))|merge({'class': (input_attr.class|default('') ~ ' right labeled')|trim}) -%}
-    {%- set input_right = (input_right|default('') ~ ' <div class="ui label">%</div>')|trim -%}
-
-    {{ block('form_widget_simple') }}
-{%- endblock -%}
-
-{%- block button_widget -%}
-    {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' ui button')|trim}) -%}
-    {{ parent() }}
+    {%- else -%}
+        {{- parent() -}}
+    {%- endif -%}
 {%- endblock -%}
 
 {%- block form_row -%}
-    {% import _self as util %}
-
-    <div {{ util.input_field_attributes(form.vars, field_attr|default([])) }}>
+    <div {{- block('widget_csui_field_form') -}}>
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
         {{- form_errors(form) -}}
     </div>
-{%- endblock -%}
+{%- endblock form_row -%}
+
+
+
+
+
+{# CHECKBOX #}
+{%- block checkbox_widget_saved -%}
+    {%- if csui_input is not same as(false) -%}
+        <div {{- block('widget_csui_input_checkbox') -}}>
+            {{- form_widget(form) -}}
+        </div>
+    {%- else -%}
+        {{- parent() -}}
+    {%- endif -%}
+{%- endblock checkbox_widget_saved -%}
+
+{%- block checkbox_widget -%}
+    {{- parent() -}}
+{%- endblock checkbox_widget -%}
 
 {%- block checkbox_row -%}
-    {% import _self as util %}
-
-    <div {{ util.input_field_attributes(form.vars, field_attr|default([])) }}>
-        <div {{ util.checkbox_input_attributes(form.vars, input_attr|default([])) }}>
+    <div {{- block('widget_csui_field_form') -}}>
+        <div {{- block('widget_csui_input_checkbox') -}}>
             {{- form_widget(form) -}}
             {{- form_label(form) -}}
         </div>
 
         {{- form_errors(form) -}}
     </div>
-{%- endblock -%}
+{%- endblock checkbox_row -%}
+
+
+
+
+
+{# RADIO #}
+{%- block radio_widget -%}
+    {%- if csui_input is not same as(false) -%}
+        <div {{- block('widget_csui_input_radio') -}}>
+            {{- form_widget(form) -}}
+        </div>
+    {%- else -%}
+        {{- parent() -}}
+    {%- endif -%}
+{%- endblock radio_widget -%}
 
 {%- block radio_row -%}
-    {% import _self as util %}
-
-    <div {{ util.input_field_attributes(form.vars, field_attr|default([])) }}>
-        <div {{ util.radio_input_attributes(form.vars, input_attr|default([])) }}>
+    <div {{- block('widget_csui_field_form') -}}>
+        <div {{- block('widget_csui_input_radio') -}}>
             {{- form_widget(form) -}}
             {{- form_label(form) -}}
         </div>
 
         {{- form_errors(form) -}}
     </div>
-{%- endblock -%}
+{%- endblock radio_row -%}
+
+
+
+
+
+{# BUTTON #}
+{%- block button_widget -%}
+    {%- if csui_input is not same as(false) -%}
+        {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' ui button')|trim}) -%}
+    {%- else -%}
+        {{- parent() -}}
+    {%- endif -%}
+{%- endblock button_widget -%}
 
 {%- block button_row -%}
-    {% import _self as util %}
-
-    {% if field_attr is defined %}
-        <div {{ util.button_field_attributes(form.vars, field_attr|default([])) }}>
-            {{- form_widget(form) -}}
-        </div>
-    {% else %}
+    <div {{- block('widget_csui_field') -}}>
         {{- form_widget(form) -}}
-    {% endif %}
-{%- endblock -%}
+    </div>
+{%- endblock button_row -%}
 
+
+
+
+
+{# CHOICE #}
+{%- block choice_widget_expanded -%}
+    <div {{- block('widget_container_attributes') -}}>
+        <div {{- block('widget_csui_group') -}}>
+            {%- for child in form -%}
+                <div {{- block('widget_csui_field') -}}>
+                    <div {% if multiple %}{{- block('widget_csui_input_checkbox') -}}{% else %}{{- block('widget_csui_input_radio') -}}{% endif %}>
+                        {{- form_widget(child) -}}
+                        {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+                    </div>
+                </div>
+            {%- endfor -%}
+        </div>
+    </div>
+{%- endblock choice_widget_expanded -%}
+
+{%- block choice_widget_collapsed -%}
+    {%- if csui_input is not same as(false) -%}
+        {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' ui dropdown')|trim}) -%}
+    {%- else -%}
+        {{- parent() -}}
+    {%- endif -%}
+{%- endblock choice_widget_collapsed -%}
+
+
+
+
+
+{# SPECIAL #}
 {%- block form_start -%}
-    {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' ui form')|trim}) -%}
-    {{ parent() }}
-{%- endblock -%}
+    {%- set attr = attr|merge({ 'class': ('ui ' ~ attr.class|default('') ~ ' form')|trim }) -%}
+
+    {{- parent() -}}
+{%- endblock form_start -%}
+
+{%- block form_rows -%}
+    <div {{- block('widget_csui_group') -}}>
+        {% for child in form %}
+            {{- form_row(child) -}}
+        {% endfor %}
+    </div>
+{%- endblock form_rows -%}
 
 {%- block form_errors -%}
     {%- if errors|length > 0 -%}
-        <div class="ui error message">
-            <ul class="list">
+        {# TODO: find better alternative: `display block` is required because semantic ui form style hide by default special ui messages #}
+        <div class="ui error message" style="display: block;">
+            <div class="ui bulleted list">
                 {%- for error in errors -%}
-                    <li>{{ error.message }}</li>
+                    <div class="item">{{- error.message -}}</div>
                 {%- endfor -%}
-            </ul>
+            </div>
         </div>
     {%- endif -%}
-{%- endblock -%}
+{%- endblock form_errors -%}
 
 
 
-{# util #}
-{% macro attributes(attributes) %}
-    {%- for attrname, attrvalue in attributes -%}
-        {{- " " -}}
-        {%- if attrname in ['placeholder', 'title'] -%}
-            {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain) }}"
-        {%- elseif attrvalue is same as(true) -%}
-            {{- attrname }}="{{ attrname }}"
-        {%- elseif attrvalue is not same as(false) -%}
-            {{- attrname }}="{{ attrvalue }}"
+
+
+{# UNCATEGORIZED #}
+
+
+
+
+
+{# UTIL #}
+{#     INPUT     #}
+{%- block widget_csui_input -%}
+    {%- if csui_input is not same as(false) -%}
+        {%- if csui_input is same as(true) -%}
+            {%- set csui_input = '' -%}
         {%- endif -%}
-    {%- endfor -%}
-{% endmacro %}
 
-{% macro input_attributes(context, attributes) %}
-    {%- set attributes = attributes|merge({'class': ('ui ' ~ attributes.class|default('') ~ ' input')|trim}) -%}
+        {%- set csui_input = ('ui ' ~ csui_input ~ ' input')|trim -%}
 
-    {% import _self as util %}
-    {{ util.attributes(attributes) }}
-{% endmacro %}
+        {{- " " -}}class="{{- csui_input -}}"
+    {%- endif -%}
+{%- endblock widget_csui_input -%}
 
-{% macro checkbox_input_attributes(context, attributes) %}
-    {%- set attributes = attributes|merge({'class': ('ui ' ~ attributes.class|default('') ~ ' checkbox')|trim}) -%}
+{%- block widget_csui_input_checkbox -%}
+    {%- if csui_input is not same as(false) -%}
+        {%- if csui_input is same as(true) -%}
+            {%- set csui_input = '' -%}
+        {%- endif -%}
 
-    {% import _self as util %}
-    {{ util.attributes(attributes) }}
-{% endmacro %}
+        {%- set csui_input = ('ui ' ~ csui_input ~ ' checkbox')|trim -%}
 
-{% macro radio_input_attributes(context, attributes) %}
-    {%- set attributes = attributes|merge({'class': ('ui ' ~ attributes.class|default('') ~ ' radio checkbox')|trim}) -%}
+        {{- " " -}}class="{{- csui_input -}}"
+    {%- endif -%}
+{%- endblock widget_csui_input_checkbox -%}
 
-    {% import _self as util %}
-    {{ util.attributes(attributes) }}
-{% endmacro %}
+{%- block widget_csui_input_radio -%}
+    {%- if csui_input is not same as(false) -%}
+        {%- if csui_input is same as(true) -%}
+            {%- set csui_input = '' -%}
+        {%- endif -%}
 
-{% macro input_field_attributes(context, attributes) %}
-    {%- if context.required -%}
-        {%- set attributes = attributes|merge({'class': (attributes.class|default('') ~ ' required')|trim}) -%}
+        {%- set csui_input = ('ui ' ~ csui_input ~ ' radio checkbox')|trim -%}
+
+        {{- " " -}}class="{{- csui_input -}}"
+    {%- endif -%}
+{%- endblock widget_csui_input_radio -%}
+
+{#     FIELD     #}
+{%- block widget_csui_field -%}
+    {%- set csui_field = (csui_field ~ ' field')|trim -%}
+
+    {{- " " -}}class="{{- csui_field -}}"
+{%- endblock widget_csui_field -%}
+
+{%- block widget_csui_field_form -%}
+    {# `disabled`, `required` and `error` are states (https://semantic-ui.com/collections/form.html#states) and are guessable with basic symfony view vars #}
+    {%- if disabled -%}
+        {%- set csui_field = (csui_field ~ ' disabled')|trim -%}
     {%- endif -%}
 
-    {%- if context.errors|length > 0 -%}
-        {%- set attributes = attributes|merge({'class': (attributes.class|default('') ~ ' error')|trim}) -%}
+    {%- if required -%}
+        {%- set csui_field = (csui_field ~ ' required')|trim -%}
     {%- endif -%}
 
-    {%- set attributes = attributes|merge({'class': (attributes.class|default('') ~ ' field')|trim}) -%}
+    {%- if errors|length > 0 -%}
+        {%- set csui_field = (csui_field ~ ' error')|trim -%}
+    {%- endif -%}
 
-    {% import _self as util %}
-    {{ util.attributes(attributes) }}
-{% endmacro %}
+    {%- set csui_field = (csui_field ~ ' field')|trim -%}
 
-{% macro button_field_attributes(context, attributes) %}
-    {%- set attributes = attributes|merge({'class': (attributes.class|default('') ~ ' field')|trim}) -%}
+    {{- " " -}}class="{{- csui_field -}}"
+{%- endblock widget_csui_field_form -%}
 
-    {% import _self as util %}
-    {{ util.attributes(attributes) }}
-{% endmacro %}
+{#     GROUP     #}
+{%- block widget_csui_group -%}
+    {# We don't always want grouped fields, so group is optional #}
+    {%- if csui_group is not same as(false) -%}
+        {%- if csui_group is same as(true) -%}
+            {%- set csui_group = '' -%}
+        {%- endif -%}
+
+        {%- set csui_group = (csui_group ~ ' fields')|trim -%}
+
+        {{- " " -}}class="{{- csui_group -}}"
+    {%- endif -%}
+{%- endblock widget_csui_group -%}

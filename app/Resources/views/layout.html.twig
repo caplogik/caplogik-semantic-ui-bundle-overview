@@ -6,7 +6,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
         {% block styles %}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
         {% endblock %}
     </head>
     <body>
@@ -15,26 +15,32 @@
                 Caplogik/SemanticUIBundle
             </div>
 
-            <a class="item" href="{{ path('app.home.home') }}">Home</a>
-            <a class="item" href="{{ path('app.home.installation') }}">Installation</a>
-            <a class="item" href="{{ path('app.home.overview') }}">Overview</a>
+            <div class="left menu">
+                <a class="item" href="{{ path('app.home.home') }}">Home</a>
+                <a class="item" href="{{ path('app.home.installation') }}">Installation</a>
+                <a class="item" href="{{ path('app.home.overview') }}">Overview</a>
+            </div>
 
             <div class="right menu">
                 <a class="item"> <i class="github icon"></i> Github</a>
             </div>
         </div>
 
-        <div class="ui one column grid container">
-            <div class="column">
+        <div class="ui grid container">
+            <div class="four wide column">
+                {{ knp_menu_render('main') }}
+            </div>
+            <div class="twelve wide column">
                 {% block body %}{% endblock %}
             </div>
         </div>
 
         {% block scripts %}
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
             <script>
                 $(document).find('select').dropdown();
+                $(document).find('.ui.dropdown').dropdown();
             </script>
         {% endblock %}
     </body>

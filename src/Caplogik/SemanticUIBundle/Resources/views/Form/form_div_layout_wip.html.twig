@@ -1,0 +1,95 @@
+{%- block form_widget_simple -%}
+    {%- set field_attr = field_attr|default([]) -%}
+
+    <div {{ block('widget_field_attributes') }}>
+        {{ parent() }}
+    </div>
+{%- endblock -%}
+
+
+
+
+
+
+
+{%- block form_widget_simple -%}
+    {%- import _self as util -%}
+
+    {%- set group_attr = group_attr
+        |default([])
+        |merge({ 'class': (group_attr.class|default('') ~ ' ui dropdown') }) -%}
+
+    {%- set type = type|default('text') -%}
+
+    {%- set semantic_allowed_input_types = [
+        'color',
+        'date',
+        'datetime',
+        'datetime-local',
+        'email',
+        'month',
+        'number',
+        'password',
+        'search',
+        'tel',
+        'text',
+        'time',
+        'url',
+        'week'
+    ] -%}
+
+    {%- if type in (semantic_allowed_input_types|keys) and input_attr is defined -%}
+        <div {{ util.input_attributes(form.vars, input_attr|default([])) }}>
+            {%- if input_left is defined and input_left is not empty -%}
+                {{input_left|raw}}
+            {%- endif -%}
+
+            {{ parent() }}
+
+            {%- if input_right is defined and input_right is not empty -%}
+                {{input_right|raw}}
+            {%- endif -%}
+        </div>
+    {%- else -%}
+        {{ parent() }}
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block percent_widget -%}
+    {%- set type = type|default('text') -%}
+
+    {%- set input_attr = (input_attr|default({}))|merge({ 'class': (input_attr.class|default('') ~ ' right labeled') }) -%}
+    {%- set input_right = (input_right|default('') ~ ' <div class="ui label">%</div>')|trim -%}
+
+    {{ block('form_widget_simple') }}
+{%- endblock -%}
+
+{%- block button_widget -%}
+    {%- set attr = attr|merge({'class': (attr.class|default('') ~ ' ui button')|trim}) -%}
+    {{ parent() }}
+{%- endblock -%}
+
+
+{%- block button_row -%}
+    {%- import _self as util -%}
+
+    {%- if field_attr is defined -%}
+        <div {{ util.button_field_attributes(form.vars, field_attr|default([])) }}>
+            {{- form_widget(form) -}}
+        </div>
+    {%- else -%}
+        {{- form_widget(form) -}}
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        <div class="ui error message">
+            <ul class="list">
+                {%- for error in errors -%}
+                    <li>{{ error.message }}</li>
+                {%- endfor -%}
+            </ul>
+        </div>
+    {%- endif -%}
+{%- endblock -%}
