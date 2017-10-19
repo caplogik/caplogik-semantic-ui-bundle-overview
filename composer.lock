@@ -4,8 +4,48 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1db151a3a55e44ba2dcea9e8d6ee697",
+    "content-hash": "fef9741d2ef20ec056343c01c52fef29",
     "packages": [
+        {
+            "name": "caplogik/semantic-ui-bundle",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/caplogik/semantic-ui-bundle.git",
+                "reference": "028e23cb6150c4973f9fc9a110a35565dd046740"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/caplogik/semantic-ui-bundle/zipball/028e23cb6150c4973f9fc9a110a35565dd046740",
+                "reference": "028e23cb6150c4973f9fc9a110a35565dd046740",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/console": "~2.3|~3.0",
+                "symfony/form": "~2.3|~3.0",
+                "symfony/framework-bundle": "~2.3|~3.0",
+                "symfony/twig-bundle": "~2.3|~3.0",
+                "twig/twig": "^1.14.2|^2.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Caplogik\\SemanticUIBundle\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Integrates SemanticUi into Symfony.",
+            "keywords": [
+                "semantic-ui"
+            ],
+            "support": {
+                "source": "https://github.com/caplogik/semantic-ui-bundle/tree/0.1.1",
+                "issues": "https://github.com/caplogik/semantic-ui-bundle/issues"
+            },
+            "time": "2017-10-19T15:25:49+00:00"
+        },
         {
             "name": "composer/ca-bundle",
             "version": "1.0.7",
